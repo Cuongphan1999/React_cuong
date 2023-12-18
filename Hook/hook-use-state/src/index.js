@@ -12,6 +12,7 @@ import './index.css';
 //import NumberModification from './component/customHook/NumberModification';
 import DictionaryTextBox from './component/customHook/dictionnaryTextbox';
 import DictionaryButton from './component/customHook/dictionnaryButton';
+import Timer from './component/TimeDown';
 const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(
@@ -26,6 +27,7 @@ root.render(
         <hr />
         <DictionaryTextBox />
         <DictionaryButton />
+        <Timer/>
     </React.StrictMode>
 );
 

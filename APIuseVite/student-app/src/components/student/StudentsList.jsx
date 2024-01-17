@@ -4,12 +4,17 @@ import dayjs from "dayjs";
 import { BsGenderFemale } from "react-icons/bs";
 import { CgGenderMale } from "react-icons/cg";
 import { FaUserXmark } from "react-icons/fa6";
+import { FaUserGear } from "react-icons/fa6";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import ModifyStudentModal from "./ModifyStudentModal";
 export default function StudentList() {
   const [studentList, setStudentList] = useState([]);
   const [Loading, setLoading] = useState(false);
-
+  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [show, setShow] = useState(false)
+  const [studentId, setStudentId] = useState(null)
   useEffect(() => {
     // fetch('https://6596b23a6bb4ec36ca0329d0.mockapi.io/student',{
     //    method: 'GET'}) //kieu PROMISE CHANGR
@@ -28,7 +33,8 @@ export default function StudentList() {
       setLoading(false);
     }
     getStudentList();
-  }, []);
+  }, [selectedStudent]); //selectedstudent khi null thay doi gia tri thif useeffect render lai
+  //console.log(selectedStudent);
   //console.log(studentList);
 const handleRemoveStudent = (student) => {
   console.log(student);
@@ -43,17 +49,23 @@ const handleRemoveStudent = (student) => {
     confirmButtonText: "Confirm",
   }).then(async (result) => {
     if (result.isConfirmed) {
-      let removeStudentRes = await fetch(`https://6596b23a6bb4ec36ca0329d0.mockapi.io/student${student.id}`,
+      let removeStudentRes = await fetch(`https://6596b23a6bb4ec36ca0329d0.mockapi.io/student/${student.id}`,
       {
         method: "DELETE"
       })
-      let result = await removeStudentRes.json()
-      if(result){
+      let removeStudent = await removeStudentRes.json()
+      if(removeStudent){
         toast.success('student removed succeed')
+        setSelectedStudent(removeStudent) // update student list khi remove student
+        
       }
     }
   });
   
+}
+const handleModifyStudent = (student) => {
+  setShow(true)
+  setStudentId(student?.id)
 }
 
   return (
@@ -82,7 +94,9 @@ const handleRemoveStudent = (student) => {
                   <div className="d-flex align-items-center">
                     <img className="avatar-sm" src={student.avatarUrl} alt="" />
                     <div className="d-flex flex-column">
-                      <span>{student.fullname}</span>
+                      <Link to={`/student/${student.id}`}>
+                        {student.fullname}
+                      </Link>
                       {Boolean(student.gender) ? (
                         <BsGenderFemale className="text-primary" />
                       ) : (
@@ -98,10 +112,14 @@ const handleRemoveStudent = (student) => {
                 <td className="text-end align-middle">{student.mobile}</td>
                 <td>{student.department.name}</td>
                 <td>
-                  <div>
+                  <div className="d-flex flex-column justify-content-center align-items-center">
                   <FaUserXmark role="button" title="Remove student" className="me-2 text-danger " size={20}
                     onClick={() => handleRemoveStudent(student)} //xoa student
                   />
+                    <FaUserGear role="button" title="Modify Student" className="me-2 text-primary " size={20}
+                      //onClick={() => setShow(true)} //ban dau false -> sau khi click -> true
+                        onClick={()=> handleModifyStudent(student)}
+                    />
                   </div>
                 </td>
               </tr>
@@ -109,6 +127,7 @@ const handleRemoveStudent = (student) => {
           </tbody>
         </table>
       )}
+       <ModifyStudentModal show={show} handleClose={setShow} studentId={studentId}/>
     </>
   );
 }

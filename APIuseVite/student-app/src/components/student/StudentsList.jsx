@@ -9,13 +9,14 @@ import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import ModifyStudentModal from "./ModifyStudentModal";
+import Spinner from "../Spinner/Spinner";
 export default function StudentList() {
   const [studentList, setStudentList] = useState([]);
   const [Loading, setLoading] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [show, setShow] = useState(false)
   const [studentId, setStudentId] = useState(null)
-  useEffect(() => {
+  useEffect(() => { //cap nhat student list o day
     // fetch('https://6596b23a6bb4ec36ca0329d0.mockapi.io/student',{
     //    method: 'GET'}) //kieu PROMISE CHANGR
     //     .then((res) => res.json())
@@ -33,7 +34,8 @@ export default function StudentList() {
       setLoading(false);
     }
     getStudentList();
-  }, [selectedStudent]); //selectedstudent khi null thay doi gia tri thif useeffect render lai
+  }, [selectedStudent, studentId]); //selectedstudent khi null thay doi gia tri thif useeffect render lai
+  //StudentId update modify
   //console.log(selectedStudent);
   //console.log(studentList);
 const handleRemoveStudent = (student) => {
@@ -71,7 +73,7 @@ const handleModifyStudent = (student) => {
   return (
     <>
       {Loading ? (
-        <p>Loading</p>
+        <Spinner/>
       ) : (
         <table className="table table-bordered table-striped table-hover rounded-3 overflow-hidden">
           <caption></caption>
@@ -127,9 +129,11 @@ const handleModifyStudent = (student) => {
           </tbody>
         </table>
       )}
-       <ModifyStudentModal show={show} handleClose={setShow} studentId={studentId}/>
+       <ModifyStudentModal show={show} handleClose={setShow} studentId={studentId} setStudentId={setStudentId}/>
     </>
   );
 }
 //? dung mang va obj: ? la kt co data/value/ khong neu co thi lam , con k co thi thoi
 //38:35
+//setStudentId : state me nen khi cap nhat thi nos update StudentId =>kt cho nao cap nhat state setStudentId nay
+

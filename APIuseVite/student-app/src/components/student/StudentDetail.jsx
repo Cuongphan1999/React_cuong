@@ -1,34 +1,34 @@
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 import { FaUser } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { FaBirthdayCake, FaMobileAlt, FaBackward } from "react-icons/fa";
 import { BsGenderAmbiguous } from "react-icons/bs";
 import { FcDepartment } from "react-icons/fc";
 import dayjs from "dayjs";
+import { Link } from "react-router-dom";
+import Spinner from "../Spinner/Spinner";
+
+
 export default function StudentDetail() {
-  const { studentId } = useParams(); //user params no quet : student.id => lay id /student/5
-  const [student, setStudent] = useState({});
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    setLoading(true);
-    async function getStudentById() {
-      let studentRes = await fetch(
-        `https://6596b23a6bb4ec36ca0329d0.mockapi.io/student/${studentId}`,
-        { method: "GET" }
-      );
-      let data = await studentRes.json();
-      setStudent(data);
-    }
-    getStudentById();
-    setLoading(false);
-  }, [studentId]);
+    const { studentId } = useParams()
+    const [student, setStudent] = useState({})
+    const [loading, setLoading] = useState(false)
+    useEffect(() => {
+        setLoading(true)
+        async function getStudentById() {
+            let studentRes = await fetch(`https://6596b23a6bb4ec36ca0329d0.mockapi.io/student/${studentId}`, { method: "GET" })
+            let data = await studentRes.json()
+            setStudent(data)
+            setLoading(false)
+        }
+        getStudentById()
+    }, [studentId])
   return (
     //<p>{studentId}</p>
     <>
-      { loading ? (
-        <p>Loading...</p>
-      ) : (
+    
+      { loading ? <Spinner/> : (
         <>
           <div className="d-flex align-items-center">
             <img className="avatar-lg me-4" src={student?.avatarUrl} alt="" />

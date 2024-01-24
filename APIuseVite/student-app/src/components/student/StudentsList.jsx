@@ -26,9 +26,10 @@ export default function StudentList() {
     //async ham bat dong bo nhung ma bieu dien ra nhu dong bo->awaiting
     setLoading(true);
     async function getStudentList() {
-      let StudentListRes = await fetch(
-        "https://6596b23a6bb4ec36ca0329d0.mockapi.io/student"
-      );
+      let StudentListRes = await fetch(`${import.meta.env.VITE_API_URI}/student` //dung env file
+        //"https://student-app-api.vercel.app/student" //change url API tren VERCEL
+        //https://6596b23a6bb4ec36ca0329d0.mockapi.io/student //dung Mockapi
+        );
       let data = await StudentListRes.json();
       setStudentList(data);
       setLoading(false);
@@ -51,8 +52,10 @@ const handleRemoveStudent = (student) => {
     confirmButtonText: "Confirm",
   }).then(async (result) => {
     if (result.isConfirmed) {
-      let removeStudentRes = await fetch(`https://6596b23a6bb4ec36ca0329d0.mockapi.io/student/${student.id}`,
-      {
+      let removeStudentRes = await fetch(
+        //`https://6596b23a6bb4ec36ca0329d0.mockapi.io/student/${student.id}`,
+        `${import.meta.env.VITE_API_URI}/student/${student.id}`,
+        {
         method: "DELETE"
       })
       let removeStudent = await removeStudentRes.json()

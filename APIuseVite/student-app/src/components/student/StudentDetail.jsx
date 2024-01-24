@@ -18,7 +18,10 @@ export default function StudentDetail() {
     useEffect(() => {
         setLoading(true)
         async function getStudentById() {
-            let studentRes = await fetch(`https://6596b23a6bb4ec36ca0329d0.mockapi.io/student/${studentId}`, { method: "GET" })
+            let studentRes = await fetch(
+              //`https://6596b23a6bb4ec36ca0329d0.mockapi.io/student/${studentId}`
+              `${import.meta.env.VITE_API_URI}/student/${studentId}`
+            , { method: "GET" })
             let data = await studentRes.json()
             setStudent(data)
             console.log(data)

@@ -34,7 +34,8 @@ export default function CreateStudent() {
     //     })
     async function getDepartmentList() {
       let departmentListRes = await fetch(
-        "https://6596b23a6bb4ec36ca0329d0.mockapi.io/department"
+        //"https://6596b23a6bb4ec36ca0329d0.mockapi.io/department"
+        `${import.meta.env.VITE_API_URI}/department`
       );
       let data = await departmentListRes.json();
       setDepartmentList(data);
@@ -78,7 +79,10 @@ export default function CreateStudent() {
 
     try {
       setIsCreating(true)
-      let createStudentRes = await fetch('https://6596b23a6bb4ec36ca0329d0.mockapi.io/student', {
+      let createStudentRes = await fetch(
+        //'https://6596b23a6bb4ec36ca0329d0.mockapi.io/student', 
+        `${import.meta.env.VITE_API_URI}/student`,
+        {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'

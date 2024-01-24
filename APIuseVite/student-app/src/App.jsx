@@ -7,6 +7,7 @@ import CreateStudent from "./components/student/CreateStudent";
 import StudentDetail from "./components/student/StudentDetail";
 import LoginPage from "./pages/LoginPage";
 import NotPermissionPage from "./pages/NotPermissionPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path=":studentId" element={<StudentDetail />} />
         </Route>
         <Route path="/not-permission" element={<NotPermissionPage/>} />
+        <Route path="*" element={<NotFoundPage/>} />
       </Routes>
     </>
   );

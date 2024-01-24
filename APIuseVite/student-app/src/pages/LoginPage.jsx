@@ -44,15 +44,11 @@ export default function LoginPage() {
       if (data?.token) {
         let date = new Date();
         let expires = date.setDate(date.getDate() + 1);
-        // let expires = date.setMinutes(date.getMinutes() + 1)
-        console.log(
-          `student_app_token=${data?.token}; expires=${new Date(expires).toUTCString()}`);
-        document.cookie = `student_app_token=${data?.token}; expires=${new Date(
-          expires
-        ).toUTCString()}`;//hien ngay thang
+         //let expires = date.setMinutes(date.getMinutes() + 1)
+        console.log(`student_app_token=${data?.token}; expires=${new Date(expires).toUTCString()}`);
+        document.cookie = `student_app_token=${data?.token}; expires=${new Date(expires).toUTCString()}`;//hien ngay thang
         navigate("/student", { replace: true });//neu k muon luu lai lich su try cap truoc do thi chon replice : true
       }
-
       if (data?.error) {
         toast.error("User not found");
       }

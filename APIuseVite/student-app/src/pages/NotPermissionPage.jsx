@@ -1,13 +1,12 @@
-import { FaQuestionCircle, FaFastBackward } from "react-icons/fa";
-
-export default function NotFoundPage() {
+import { FaTimesCircle } from "react-icons/fa";
+import { Link } from "react-router-dom";
+export default function NotPermissionPage() {
     return (
         <div className="vh-100 w-100 d-flex flex-column align-items-center justify-content-center">
-   
-            <button  className="btn btn-outline-warning d-flex align-items-center">
-                <FaFastBackward className="me-2" />
-                Back to previous page
-            </button>
+            <FaTimesCircle size={50} className="text-danger"/>
+            <h1>Access Denied</h1>
+            <p>You do not have permission to access this page</p>
+            <p>Please <Link to ={"/login"}>Signin</Link> and try again</p>
         </div>
     )
 }

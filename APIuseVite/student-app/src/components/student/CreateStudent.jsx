@@ -44,7 +44,8 @@ export default function CreateStudent() {
       //let departmentListRes = await axios.get(`${import.meta.env.VITE_API_URI}/department`);
       let departmentListRes = await DepartmentService.getDepartmentList()
       console.log(departmentListRes.data);
-      setDepartmentList(departmentListRes?.data);
+      //setDepartmentList(departmentListRes?.data);
+      setDepartmentList(departmentListRes?) //bo data ->su dung intercepters->api client
     }
     getDepartmentList();
     //console.log(DepartmentList);

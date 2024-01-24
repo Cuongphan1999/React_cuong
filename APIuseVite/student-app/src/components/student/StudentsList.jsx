@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import ModifyStudentModal from "./ModifyStudentModal";
 import Spinner from "../Spinner/Spinner";
+import { FaSearch } from "react-icons/fa";
 export default function StudentList() {
   const [studentList, setStudentList] = useState([]);
   const [Loading, setLoading] = useState(false);
@@ -75,6 +76,31 @@ const handleModifyStudent = (student) => {
 
   return (
     <>
+    <div className="d-flex align-items-center justify-content-between my-2">
+      <form className="d-flex align-items-center w-50">
+        <input type="text" 
+        className="form-control-sm "
+        placeholder="Search..."/>
+        <FaSearch size={20} className="text-secondary"  style={{marginLeft: '-24px'}}/>
+      </form>
+      <div className="d-flex align-items-center">
+        <div className="d-flex align-items-center justify-content-center me-2">
+          <span className="me-2">Field</span>
+          <select className="form-select form-select-sm">
+            <option value={"fullname"}>Fullname</option>
+            <option value={"email"}>email</option>
+          </select>
+        </div>
+        <div className="d-flex align-items-center justify-content-center">
+          <span className="me-2">Sort</span>
+          <select className="form-select form-select-sm">
+            <option value={"asc"}>Ascendent</option>
+            <option value={"desc"}>Descendent</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
       {Loading ? (
         <Spinner/>
       ) : (
@@ -132,6 +158,32 @@ const handleModifyStudent = (student) => {
           </tbody>
         </table>
       )}
+       {/* page */}
+      <div className="d-flex justify-items-center justify-content-between">
+        <ul className="pagination">
+          <li className="page-item">
+                <button className="page-link">Previous</button>
+          </li>
+          <li className="page-item">
+                <button className="page-link btn-primary">Next</button>
+          </li>
+        </ul>
+        <div className="d-flex align-items-center">
+                    <span style={{ width: '150px' }}>Items per page</span>
+                    <select
+                        className="form-select form-select-sm"
+                        style={{ width: '100px' }}
+                        
+                    >
+                        <option value={10}>10</option>
+                        <option value={30}>30</option>
+                        <option value={50}>50</option>
+                        <option value={100}>100</option>
+                    </select>
+                </div>
+      </div>
+
+
        <ModifyStudentModal show={show} handleClose={setShow} studentId={studentId} setStudentId={setStudentId}/>
     </>
   );

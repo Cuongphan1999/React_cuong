@@ -9,6 +9,9 @@ import axios from "axios"
 import DepartmentService from "../../service/department-service";
 
 
+
+
+
 //yup: dinh nghia ra cac tap hop rang buoc=>nem obj-> user form({resolver: yupResolver(schema)})
 //yupresolver:
 const schema = yup.object({
@@ -45,7 +48,7 @@ export default function CreateStudent() {
       let departmentListRes = await DepartmentService.getDepartmentList()
       console.log(departmentListRes.data);
       //setDepartmentList(departmentListRes?.data);
-      setDepartmentList(departmentListRes?) //bo data ->su dung intercepters->api client
+      setDepartmentList(departmentListRes.data) //bo data ->su dung intercepters->api client
     }
     getDepartmentList();
     //console.log(DepartmentList);
@@ -97,6 +100,7 @@ export default function CreateStudent() {
           body: JSON.stringify(values)
       })
       let result = await createStudentRes.json();
+     //let result = await StudentService.createStudent(values))
       if (result) {
           reset()
           toast.success ('Student created succeed', { theme: 'light' })

@@ -5,7 +5,8 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-
+import axios from "axios"
+import DepartmentService from "../../service/department-service";
 
 
 //yup: dinh nghia ra cac tap hop rang buoc=>nem obj-> user form({resolver: yupResolver(schema)})
@@ -33,12 +34,17 @@ export default function CreateStudent() {
     //         setDepartmentList(data);
     //     })
     async function getDepartmentList() {
-      let departmentListRes = await fetch(
-        //"https://6596b23a6bb4ec36ca0329d0.mockapi.io/department"
-        `${import.meta.env.VITE_API_URI}/department`
-      );
-      let data = await departmentListRes.json();
-      setDepartmentList(data);
+      // let departmentListRes = await fetch(
+      //   //"https://6596b23a6bb4ec36ca0329d0.mockapi.io/department"
+      //   `${import.meta.env.VITE_API_URI}/department`
+      // );
+      // let data = await departmentListRes.json();
+      // setDepartmentList(data);
+      //su dung Axios thay fetch
+      //let departmentListRes = await axios.get(`${import.meta.env.VITE_API_URI}/department`);
+      let departmentListRes = await DepartmentService.getDepartmentList()
+      console.log(departmentListRes.data);
+      setDepartmentList(departmentListRes?.data);
     }
     getDepartmentList();
     //console.log(DepartmentList);

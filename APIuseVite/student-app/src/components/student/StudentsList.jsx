@@ -38,19 +38,10 @@ export default function StudentList() {
     //async ham bat dong bo nhung ma bieu dien ra nhu dong bo->awaiting
     setLoading(true);
     async function getStudentList() {
-      let StudentListRes = await fetch(
-        `${import.meta.env.VITE_API_URI}/student?_page=${
-          filters?.page
-        }&_limit=${filters?.limit}&_sort=${filters.sort}&_order=${
-          filters.order
-        }&fullname_like=${filters.searchText}` //dung env file
-
-        //"https://student-app-api.vercel.app/student" //change url API tren VERCEL
-        //https://6596b23a6bb4ec36ca0329d0.mockapi.io/student //dung Mockapi
-      );
-      let data = await StudentListRes.json();
-      setStudentList(data);
-      setLoading(false);
+      let studentListRes = await fetch(`${import.meta.env.VITE_API_URI}/student?_page=${filters?.page}&_limit=${filters?.limit}&_sort=${filters.sort}&_order=${filters.order}&fullname_like=${filters.searchText}`)
+      let data = await studentListRes.json()
+      setStudentList(data)
+      setLoading(false)
     }
     getStudentList();
   }, [selectedStudent, studentId, filters]); //selectedstudent khi null thay doi gia tri thif useeffect render lai
